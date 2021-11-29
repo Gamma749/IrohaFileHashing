@@ -1,0 +1,295 @@
+query_hash: "4f2df4be4811043457ea27540b203b175aeab6f932b2bb8b5e9fe8d9650983af"
+block_response {
+  block {
+    block_v1 {
+      payload {
+        transactions {
+          payload {
+            reduced_payload {
+              commands {
+                add_peer {
+                  peer {
+                    address: "172.29.101.121:10001"
+                    peer_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
+                  }
+                }
+              }
+              commands {
+                add_peer {
+                  peer {
+                    address: "172.29.101.122:10002"
+                    peer_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+                  }
+                }
+              }
+              commands {
+                add_peer {
+                  peer {
+                    address: "172.29.101.123:10003"
+                    peer_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+                  }
+                }
+              }
+              commands {
+                add_peer {
+                  peer {
+                    address: "172.29.101.124:10004"
+                    peer_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
+                  }
+                }
+              }
+              commands {
+                create_role {
+                  role_name: "admin"
+                  permissions: can_add_peer
+                  permissions: can_add_signatory
+                  permissions: can_create_account
+                  permissions: can_create_domain
+                  permissions: can_create_asset
+                  permissions: can_create_role
+                  permissions: can_get_all_acc_ast
+                  permissions: can_get_all_acc_ast_txs
+                  permissions: can_get_all_acc_detail
+                  permissions: can_get_all_acc_txs
+                  permissions: can_get_all_accounts
+                  permissions: can_get_all_signatories
+                  permissions: can_get_all_txs
+                  permissions: can_get_blocks
+                  permissions: can_get_roles
+                  permissions: can_read_assets
+                  permissions: can_remove_signatory
+                  permissions: can_set_quorum
+                }
+              }
+              commands {
+                create_domain {
+                  domain_id: "admin"
+                  default_role: "admin"
+                }
+              }
+              commands {
+                create_account {
+                  account_name: "admin"
+                  domain_id: "admin"
+                  public_key: "313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910"
+                }
+              }
+              quorum: 1
+            }
+          }
+        }
+        tx_number: 1
+        height: 1
+        prev_block_hash: "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    }
+  }
+}
+
+
+query_hash: "084845781f7afd9b3b11161c68510d95192d37340af9843cd1aa4de44be08ade"
+block_response {
+  block {
+    block_v1 {
+      payload {
+        transactions {
+          payload {
+            reduced_payload {
+              commands {
+                create_role {
+                  role_name: "document_creator"
+                  permissions: can_create_asset
+                  permissions: can_read_assets
+                }
+              }
+              commands {
+                create_domain {
+                  domain_id: "document"
+                  default_role: "document_creator"
+                }
+              }
+              creator_account_id: "admin@admin"
+              created_time: 1638150175124
+              quorum: 1
+            }
+          }
+          signatures {
+            public_key: "313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910"
+            signature: "6911ca7ce44338b94bc3c6d403faee8312552a763db06a869f8f73d7a0331c9930e143bc3d175a1eab45230bb5a52269995da9d348cc9c25cf03d6c98299420d"
+          }
+        }
+        height: 2
+        prev_block_hash: "edb8b76962c814ad16a2e285a7238b496d883d8bdd5c91c7fd010808437a43ce"
+        created_time: 1638150177151
+      }
+      signatures {
+        public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
+        signature: "e678f72d3cd6dff3d3b760b64316a9b36236992ecd22f14b0e3de0eb93898b5e32ae4dcd5b18d16a3656218901ee868155379168ccbc987f862f43c2ac46000e"
+      }
+      signatures {
+        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+        signature: "38a057f0975b55596d02f4575daba84f5f5179bb531e128d5f8e0000b09447887718639ff9fab26d8a90cd274d14b5791b4f2ef45ed35b02ec73995ca03c3d08"
+      }
+      signatures {
+        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+        signature: "e0d62974021459b294b606f65c890f31f356b5eed5a8ed54bee418ba3f2125b54933a8494a327251faf8489c5c65cc88592a36cef84454e9c6d40a8ed13bd509"
+      }
+    }
+  }
+}
+
+
+query_hash: "95e450a1eabe4e19cd6674d9cf2207a6292061b6aae6dd3991bd8156f3fee5c5"
+block_response {
+  block {
+    block_v1 {
+      payload {
+        transactions {
+          payload {
+            reduced_payload {
+              commands {
+                create_account {
+                  account_name: "user_a"
+                  domain_id: "document"
+                  public_key: "9a55355fd46ae961b797d05d0473e5bfa52fa971de44ba706447e324c85124d9"
+                }
+              }
+              commands {
+                create_account {
+                  account_name: "user_b"
+                  domain_id: "document"
+                  public_key: "5cfd77115391decdc6d67c7c0d7e7872e0dc836ff794e69e0ff99153f7d2c17e"
+                }
+              }
+              commands {
+                create_account {
+                  account_name: "user_c"
+                  domain_id: "document"
+                  public_key: "1739a61846986814c6791df7fccac9053cb705d2e9717bb1988b5b1f5462b71b"
+                }
+              }
+              creator_account_id: "admin@admin"
+              created_time: 1638150177208
+              quorum: 1
+            }
+          }
+          signatures {
+            public_key: "313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910"
+            signature: "f90c94236743ce019b70b40bace32e680690bef8ee9f2b54916af4169516b439e0d63c092637b14ab87b3ed7b2d3f6862c5ddf5f3d3bfd87f45a8382a05f4d05"
+          }
+        }
+        height: 3
+        prev_block_hash: "0a879246f1ec66114865aee2dc33d725ce8b41110293e573e17e761b622ae23c"
+        created_time: 1638150180201
+      }
+      signatures {
+        public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
+        signature: "9bd03b2d57f910d4bd1108f55bc2589415ed018e4a3ba569b37b25f137fbae675edfffeb040af921e25269ed780def076212cdad51e7037ff39003c829d07706"
+      }
+      signatures {
+        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+        signature: "56374f139cd9d7d0398cf16b022fd4c27a439ec6a057102c262682003c4a95bed5771ad0963d3320091eaef4169babfa5fc3194fd4b5430f0caf77c2601cdb02"
+      }
+      signatures {
+        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+        signature: "9485fc4840428c13531461352cadc2445d57529687b90b0c34f2f66fbfd37a1d1fe59d3319089b556d631fc74203bd453a946708507db6482d9f6ac789354200"
+      }
+    }
+  }
+}
+
+
+query_hash: "ba1a5a4151ffbfeb79a022730aacfe658f012a5a1c1ae79b2dfa37c718ed5de3"
+block_response {
+  block {
+    block_v1 {
+      payload {
+        transactions {
+          payload {
+            reduced_payload {
+              commands {
+                create_asset {
+                  asset_name: "f01bd23a7f648980734bafe206b4a1b5"
+                  domain_id: "document"
+                }
+              }
+              creator_account_id: "user_a@document"
+              created_time: 1638150180254
+              quorum: 1
+            }
+          }
+          signatures {
+            public_key: "9a55355fd46ae961b797d05d0473e5bfa52fa971de44ba706447e324c85124d9"
+            signature: "ec0234e32223ab117d3348f62d87dc1ebff70d68dfe121cc8c08fadc3a89b0e99d4f595bc40756d9bfbd6ce484e7e4597ddff3398d194fc6b79d7dafaa9e8600"
+          }
+        }
+        height: 4
+        prev_block_hash: "a4082bee5535dede208acb14d476036dcede0e3d84758eb45b97fb5092cc9d84"
+        created_time: 1638150183251
+      }
+      signatures {
+        public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
+        signature: "f7dcd59f1669face03838d7c27a03518db72e09cede33ab02a2ed79c745160053039f084ec3c40ea117e4987c5146f0a3ebb3aa8a1de825af3446237d9486e0f"
+      }
+      signatures {
+        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+        signature: "f0ed843e3e380acec72ba1aad57200ea0e00947353af789154f7a1b741c94ef34241d2010b396b8d06c63421bfcff8f1acd37b8f9530b1d6125b29de29a79304"
+      }
+      signatures {
+        public_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
+        signature: "bcd4d7245af2339b7923ee595992119e466a164ce9303c3c86ab0b38dda72278364929f906ba27d579c87bdd145319f516a0eb92d70ca7b691edba791cdaaf04"
+      }
+    }
+  }
+}
+
+
+query_hash: "a5a184e021a298e2267e641cab76590cf93cd162faab99a4d8f020fea555ce0c"
+block_response {
+  block {
+    block_v1 {
+      payload {
+        transactions {
+          payload {
+            reduced_payload {
+              commands {
+                create_asset {
+                  asset_name: "920bbbd31080b867e575f0813d046bb8"
+                  domain_id: "document"
+                }
+              }
+              creator_account_id: "user_b@document"
+              created_time: 1638150183310
+              quorum: 1
+            }
+          }
+          signatures {
+            public_key: "5cfd77115391decdc6d67c7c0d7e7872e0dc836ff794e69e0ff99153f7d2c17e"
+            signature: "4c0a9baa6a521138691f72cbadfc6e43683a39a7dadc8f8901459c1eb709b8006998210b5785b36d72a2af098eb72119c9f88115c451ae3a43c3c19208b8c307"
+          }
+        }
+        height: 5
+        prev_block_hash: "76ef0f4d5a204514adae25a4cec1593616bfd47550ecf47cef10da9c0b8ceee6"
+        created_time: 1638150186303
+      }
+      signatures {
+        public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
+        signature: "d4ca8cf89b7f047133854d4dcc3702379ffad650496d79c04e9ab4f81c061dd9ef97da84c089809360594b77d9ea85adbb25d0fcf109fda2aab9e97c74090f09"
+      }
+      signatures {
+        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+        signature: "2a9407b9b0479aac0736c6aae7abff27016a9c7983cdb5a3c92acbd777c3f27afa0eb63f48997c0c923dac552f3c4e6725f3469c9aad05de8ef9eb72d952e300"
+      }
+      signatures {
+        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+        signature: "91f9ce81af19f4219075b39bf7e0d09cc420a52f720cddc3b09ccb11505fa50567a4fb8dfba9e68baf85c3ac53f3ce2a5805a48b01019885155e13ef7ff53306"
+      }
+      signatures {
+        public_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
+        signature: "8f91e16a019ee9ed53cec7eba72ff54b1ebe658c7fad69e66b31feab75f5f868afa50f83fd06c1ca7a5fe25cdff7987383f6e6c885e0816c5d3c865c9169ff0b"
+      }
+    }
+  }
+}
+
+
