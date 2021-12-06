@@ -2,7 +2,9 @@ import os
 import binascii
 import logging
 from pathlib import Path
-from iroha import IrohaCrypto, Iroha, IrohaGrpc
+from google.protobuf.symbol_database import Default
+from iroha import IrohaCrypto, Iroha, IrohaGrpc, primitive_pb2
+import hashlib
 
 class bcolors:
     HEADER = '\033[95m'
@@ -124,7 +126,7 @@ def get_block(block_number, connection):
     """
 
     query = iroha_admin.query("GetBlock", height=block_number)
-    IrohaCrypto.sign_query(query, ADMIN_PRIVATE_KEY)
+    query = IrohaCrypto.sign_query(query, ADMIN_PRIVATE_KEY)
     block = connection.send_query(query)
 
     return block
@@ -169,7 +171,7 @@ def log_all_blocks(connection, log_name, logs_directory="logs"):
 
     block_json = get_all_blocks(connection)
 
-    with open(path, "w") as f:
+    with open(path, "w+") as f:
         for block in block_json:
             f.write(str(block)+"\n\n")
 
@@ -201,3 +203,143 @@ def new_user(user_name, domain_name):
         "private_key": priv_key,
         "iroha": Iroha(id)
     }
+
+def admin_create_domain(domain_name):
+    """
+    Create a new domain, according to admins specifications
+    This function exists so a user cannot make a domain with a specific role, as now admin gets to control this
+    This function requires existence of a null_role. Passing in a role would defeat the purpose of this function
+
+
+    Args:
+        domain_name (String): The domain name to create
+
+    Return:
+        Boolean: True if domain exists, False otherwise
+    """
+
+    commands = [
+        iroha_admin.command("CreateDomain", domain_id=domain_name, default_role="null_role")
+    ]
+    tx = IrohaCrypto.sign_transaction(
+        iroha_admin.transaction(commands), ADMIN_PRIVATE_KEY)
+    logging.debug(tx)
+    status = send_transaction(tx, net_1)
+    logging.debug(status)
+    if status[0]=="COMMITTED":
+        logging.info(f"New domain \"{domain_name}\" created")
+    else:
+        logging.info(f"Domain \"{domain_name}\" already exists")
+
+    # Domain will always exist, look into False case later
+    return True
+
+class IrohaHashCustodian():
+    """
+    A class to look after hashes on the block chain
+    Offering the ability to get hashes of a file, store hashes on the chain, and find hashes on the chain
+    """
+
+    """
+    The hash function this custodian will use
+    Iroha demands 32 character asset names, so we are restricted greatly in output size
+    """
+    hash_function = hashlib.md5
+
+    @trace
+    def get_file_hash(self, filename):
+        """
+        Generate and return the MD5 hex digest of the contents of a file
+        While it would be nice to use a different, more secure algorithm we are constrained
+        The output of this hash will be the name of an Iroha asset, which can have max length of 32
+
+        Args:
+            filename (String): The name of the file to hash
+
+        Returns:
+            String: The hex digest of the contents of the file described by filename
+        """
+        with open(filename, "rb") as f:
+            b = f.read()
+            h = self.hash_function(b)
+        logging.debug(h.hexdigest())
+        return h.hexdigest()
+
+    @trace
+    def get_hash(self, obj):
+        """
+        Get the hash digest of an object
+
+        Args:
+            obj (Object, hashable): The object to hash
+
+        Returns:
+            String: The hex digest of the object
+        """
+        obj = str(obj).encode()
+        return self.hash_function(obj).hexdigest()
+
+    @trace
+    def store_hash_on_chain(self, user, h, domain_name=None, connection=net_1):
+        """
+        Take the hex digest of a message and store this on the blockchain as the name of an asset
+
+        Args:
+            user (Dictionary): The user dictionary of the user sending this hash
+            h (String): The hash of a message
+            domain_name (String or None, optional): The domain name to store the hash in
+                If None then use the users domain instead
+                Defaults to None
+            connection (IrohaGrpc, optional): The connection to send this hash over. Defaults to net_1.
+
+        Return:
+            IrohaStatus: The status of the transaction to put this hash to the chain
+        """
+
+        if domain_name is None:
+            domain_name = user["domain"]
+
+        # Try to create the domain, true if domain now exists, false otherwise
+        status = admin_create_domain(domain_name)
+        if not status:
+            logging.info("Domain failed to exist!")
+            # Let method continue so rejected status can be passed
+
+        commands = [
+            user["iroha"].command('CreateAsset', asset_name=h,
+                        domain_id=domain_name, precision=0)
+        ]
+        tx = IrohaCrypto.sign_transaction(
+            user["iroha"].transaction(commands), user["private_key"])
+        logging.debug(tx)
+        status = send_transaction(tx, connection)
+        logging.debug(status)
+        return status
+
+    @trace
+    def find_hash_on_chain(self, user, h, domain_name=None, connection=net_1):
+        """
+        Given the hex digest of a message, attempt to find this hash on the blockchain
+
+        Args:
+            user (Dictionary): The user dictionary of the user querying this hash
+            h (String): The hash of a message
+            domain_name (String or None, optional): The domain name to search for the hash in
+                If None then use the users domain instead
+                Defaults to None
+            connection (IrohaGrpc, optional): The connection to send this hash over. Defaults to net_1.
+
+        Return:
+            IrohaStatus: The status of this query. True if the hash exists on the blockchain, False otherwise.
+        """
+        
+        if domain_name is None:
+            domain_name = user["domain"]
+
+        query = user["iroha"].query("GetAssetInfo", asset_id=f"{h}#{domain_name}")
+        query = IrohaCrypto.sign_query(query, user["private_key"])
+        logging.debug(query)
+        response = connection.send_query(query)
+        logging.debug(response)
+        #Check if response has an asset id matching the hash we are after
+        return response.asset_response.asset.asset_id==h+f"#{user['domain']}"
