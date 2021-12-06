@@ -14,14 +14,14 @@ logging.basicConfig(level=logging.INFO)
 
 
 # The iroha domain that document hashes are stored in
-DEFAULT_DOMAIN_NAME = "document"
+DEFAULT_DOMAIN_NAME = "hashing"
 
 # Create the users
 user_a = new_user("user_a", DEFAULT_DOMAIN_NAME)
 user_b = new_user("user_b", DEFAULT_DOMAIN_NAME)
 user_c = new_user("user_c", DEFAULT_DOMAIN_NAME)
 
-logging.info("Create new roles \'document_creator\', \'null_role\'\n\tand new domain \'document\'")
+logging.info(f"Create new roles \'document_creator\', \'null_role\'\n\tand new domain \'{DEFAULT_DOMAIN_NAME}\'")
 commands = [
     # Create a new role that can only create assets (i.e. create hashes) and read assets (to see if they exist)
     iroha_admin.command("CreateRole", role_name="document_creator", permissions=[
@@ -68,14 +68,21 @@ message = "Hello, World!"
 logging.info(f"Message: {message}")
 message_hash = custodian.get_hash(message)
 logging.debug(message_hash)
-custodian.store_hash_on_chain(user_a, message_hash, "message")
+custodian.store_hash_on_chain(user_a, message_hash, domain_name="message")
 logging.info("Message successfully logged in new domain")
 
 logging.info("User A changes the message slightly, and stores new hash")
 message+="---Foobar---"
 logging.info(f"Message: {message}")
 message_hash = custodian.get_hash(message)
-custodian.store_hash_on_chain(user_a, message_hash, "message")
+custodian.store_hash_on_chain(user_a, message_hash, domain_name="message")
 logging.info("Message successfully updated")
 
-log_all_blocks(net_1, f"node1.log")
+logging.info("User B, having received the message from A, wants to verify it")
+message_hash = custodian.get_hash(message)
+assets = custodian.get_domain_assets(user_b, domain_name="message")
+logging.info("User B, having got the assets from the domain, checks the most recent against their message")
+assert message_hash==assets[-1]["hash"]
+logging.info("User B verifies that their message is the most recent on chain")
+
+# log_all_blocks(net_1, f"node1.log")
