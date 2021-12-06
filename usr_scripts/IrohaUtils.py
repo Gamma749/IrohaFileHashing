@@ -227,9 +227,9 @@ def admin_create_domain(domain_name):
     status = send_transaction(tx, net_1)
     logging.debug(status)
     if status[0]=="COMMITTED":
-        logging.info(f"New domain \"{domain_name}\" created")
+        logging.debug(f"New domain \"{domain_name}\" created")
     else:
-        logging.info(f"Domain \"{domain_name}\" already exists")
+        logging.debug(f"Domain \"{domain_name}\" already exists")
 
     # Domain will always exist, look into False case later
     return True
@@ -343,3 +343,60 @@ class IrohaHashCustodian():
         logging.debug(response)
         #Check if response has an asset id matching the hash we are after
         return response.asset_response.asset.asset_id==h+f"#{user['domain']}"
+
+    @trace
+    def get_domain_assets(self, user, domain_name=None, connection=net_1):
+        """
+        Find all occurrences of domain being added to over the entire blockchain
+        Return this information as a list, from earliest to latest
+
+        Note this operation can be   S L O W   for large chains
+
+        Args:
+            user (Dictionary): The user dictionary of the user querying this domain
+            domain_name (String or None, optional): The domain name to search for the hash in
+                If None then use the users domain instead
+                Defaults to None
+            connection (IrohaGrpc, optional): The connection to send this hash over. Defaults to net_1.
+
+        Returns:
+            List: A list of all occurrences of assets being added to this domain over the entire chain
+                The elements of this list are dictionaries of:
+                    height: The height that asset was added
+                    hash: The name of that asset (remembering names are hashes)
+                    domain: The domain of the asset, for completeness
+                    creator_id: The creator of that asset
+                    time: The time of creation (may be more useful than height in some cases)
+        """
+
+        if domain_name is None:
+            domain_name = user["domain"]
+
+        current_height=1
+        current_block = None
+        asset_list = []
+
+        # Loop over every block in the chain, from the first
+        while (current_block := get_block(current_height, connection)).error_response.error_code == 0:
+            logging.debug(f"Got block at height {current_height}")
+            # For each transaction in the block
+            for tx in current_block.block_response.block.block_v1.payload.transactions:
+                # Get the creator and the time
+                current_creator_id = tx.payload.reduced_payload.creator_account_id
+                current_created_time = tx.payload.reduced_payload.created_time
+                # For each command in the transaction
+                for command in tx.payload.reduced_payload.commands:
+                    # If the command is to create asset in the target domain, store this
+                    if command.create_asset.domain_id == domain_name:
+                        current_asset = {
+                            "height": current_height,
+                            "hash": command.create_asset.asset_name,
+                            "domain": command.create_asset.domain_id,
+                            "creator_id": current_creator_id,
+                            "time": current_created_time
+                        }
+                        logging.debug("Found matching asset")
+                        logging.debug(f"{current_asset=}")
+                        asset_list.append(current_asset)
+            current_height+=1
+        return asset_list
