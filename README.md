@@ -36,7 +36,7 @@ Over time the events are:
 - User C gets message3.secret, computes the hash, and determines the hash is *not* on chain
     - Verifies that message3.secret was not sent
 
-#UpdatingFileHashing
+### UpdatingFileHashing
 In this example, one user (User A) creates a message and stores the hash in a new domain. All updates to this message can be stored in this domain and we can track updates to this file over time this way.
 
 Some time later, User A updates the message, and again logs the hash
