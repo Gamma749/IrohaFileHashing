@@ -1,4 +1,4 @@
-query_hash: "4f2df4be4811043457ea27540b203b175aeab6f932b2bb8b5e9fe8d9650983af"
+query_hash: "d5b1eeff5d901c989bcf7edb71265d6f98be0a9c7c3588ea28b84cba27a89724"
 block_response {
   block {
     block_v1 {
@@ -87,7 +87,7 @@ block_response {
 }
 
 
-query_hash: "084845781f7afd9b3b11161c68510d95192d37340af9843cd1aa4de44be08ade"
+query_hash: "fae119ae4fd191efe8b3461cb9d6e25f57fdf04a5dcdc6ccedf0ba6a190cbb91"
 block_response {
   block {
     block_v1 {
@@ -104,42 +104,42 @@ block_response {
               }
               commands {
                 create_domain {
-                  domain_id: "document"
+                  domain_id: "hashing"
                   default_role: "document_creator"
                 }
               }
               creator_account_id: "admin@admin"
-              created_time: 1638150175124
+              created_time: 1638934088852
               quorum: 1
             }
           }
           signatures {
             public_key: "313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910"
-            signature: "6911ca7ce44338b94bc3c6d403faee8312552a763db06a869f8f73d7a0331c9930e143bc3d175a1eab45230bb5a52269995da9d348cc9c25cf03d6c98299420d"
+            signature: "a8eee7ba35667d15984600f2164215efa30a2e0cfeb15d7116ebe24e8537131dd257207da3bfa3a732b221025983abb63e942e23b2ae2caba7cb81e8523b7906"
           }
         }
         height: 2
         prev_block_hash: "edb8b76962c814ad16a2e285a7238b496d883d8bdd5c91c7fd010808437a43ce"
-        created_time: 1638150177151
+        created_time: 1638934090686
       }
       signatures {
         public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
-        signature: "e678f72d3cd6dff3d3b760b64316a9b36236992ecd22f14b0e3de0eb93898b5e32ae4dcd5b18d16a3656218901ee868155379168ccbc987f862f43c2ac46000e"
+        signature: "87a8b7a4cbd59e253f33cc8008ca194ff8cb94237b93ea2de415139125ea0a0cf87613429679563caf08c3ec862a053c78cb4b8155cae8d503879a04a0a6a106"
       }
       signatures {
         public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
-        signature: "38a057f0975b55596d02f4575daba84f5f5179bb531e128d5f8e0000b09447887718639ff9fab26d8a90cd274d14b5791b4f2ef45ed35b02ec73995ca03c3d08"
+        signature: "e6ed113b731959448b7ea68e98c0a4270bcb59cd974688b3e3a076ca6489b201faeceeceff198bfc18baa645cd45c04a36e90be19f5f8d6a3c9b12a8de69690f"
       }
       signatures {
-        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
-        signature: "e0d62974021459b294b606f65c890f31f356b5eed5a8ed54bee418ba3f2125b54933a8494a327251faf8489c5c65cc88592a36cef84454e9c6d40a8ed13bd509"
+        public_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
+        signature: "d74243a5f5b223cb8aad6c2be293aab8cc28a045c1829e260f62d0c0f3ab1d509be06628675604fcffedee4d4bc64f4e862085cb7162967d3e916fb07534da07"
       }
     }
   }
 }
 
 
-query_hash: "95e450a1eabe4e19cd6674d9cf2207a6292061b6aae6dd3991bd8156f3fee5c5"
+query_hash: "a98410c6a8b355c936cbd36498945e9e018b45e6f2702ba778645e3dce795879"
 block_response {
   block {
     block_v1 {
@@ -150,56 +150,53 @@ block_response {
               commands {
                 create_account {
                   account_name: "user_a"
-                  domain_id: "document"
-                  public_key: "9a55355fd46ae961b797d05d0473e5bfa52fa971de44ba706447e324c85124d9"
+                  domain_id: "hashing"
+                  public_key: "91473b9c2c1759378989d63e11e5c7bbb6f37971a3364d22a43f4a1fcce8f100"
                 }
               }
               commands {
                 create_account {
                   account_name: "user_b"
-                  domain_id: "document"
-                  public_key: "5cfd77115391decdc6d67c7c0d7e7872e0dc836ff794e69e0ff99153f7d2c17e"
-                }
-              }
-              commands {
-                create_account {
-                  account_name: "user_c"
-                  domain_id: "document"
-                  public_key: "1739a61846986814c6791df7fccac9053cb705d2e9717bb1988b5b1f5462b71b"
+                  domain_id: "hashing"
+                  public_key: "997b270473c84596f2f30038a978c1c5fa1ad55a370e1309656e3caf7f83937a"
                 }
               }
               creator_account_id: "admin@admin"
-              created_time: 1638150177208
+              created_time: 1638934090744
               quorum: 1
             }
           }
           signatures {
             public_key: "313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910"
-            signature: "f90c94236743ce019b70b40bace32e680690bef8ee9f2b54916af4169516b439e0d63c092637b14ab87b3ed7b2d3f6862c5ddf5f3d3bfd87f45a8382a05f4d05"
+            signature: "c277fe943e9234c16385532087a6df1023bb200b8686d474fb1714a6f969a7012a177085a15b3ad86a8f480d1892e082946229a69513272bf09ad4124c4c6e0d"
           }
         }
         height: 3
-        prev_block_hash: "0a879246f1ec66114865aee2dc33d725ce8b41110293e573e17e761b622ae23c"
-        created_time: 1638150180201
+        prev_block_hash: "8f7f88cd3253ba7f677333d4967354fd0911b711edff94c366c53a215354d74d"
+        created_time: 1638934093737
       }
       signatures {
         public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
-        signature: "9bd03b2d57f910d4bd1108f55bc2589415ed018e4a3ba569b37b25f137fbae675edfffeb040af921e25269ed780def076212cdad51e7037ff39003c829d07706"
+        signature: "3e39fe8b52156aa78fbf49fe26ac4576816d6b2c4fbea9a7181e21f95964c2b28881e526490661af9d82a68d921334a6b18a8cca8b940a3133263ffcac02b206"
       }
       signatures {
-        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
-        signature: "56374f139cd9d7d0398cf16b022fd4c27a439ec6a057102c262682003c4a95bed5771ad0963d3320091eaef4169babfa5fc3194fd4b5430f0caf77c2601cdb02"
+        public_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
+        signature: "8ebbc7e6fa088af2272a03138fa23f74432a11e634e9f36185d008c71383dda456846a1240fed684dfa9e3fba30d3cb60ad303b92a74051562f7644ddd0e120a"
       }
       signatures {
         public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
-        signature: "9485fc4840428c13531461352cadc2445d57529687b90b0c34f2f66fbfd37a1d1fe59d3319089b556d631fc74203bd453a946708507db6482d9f6ac789354200"
+        signature: "2454cf7ecd16e2ac5141dfaf30a986acc0af22b54ce8128124a480a8b2e88e9d7ccf14411e3ead8451bf1e6562fb584f7f02fb1c5b9e1e6baea6b5b96d6b810c"
+      }
+      signatures {
+        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+        signature: "e90c8ddf250a0140b3b3073df539fec936721b7a4492ac5b5e28857fa01882a9d0e6c837ff482eecf483525def03eb6f0337b7edf640732f6618abe33d2f790e"
       }
     }
   }
 }
 
 
-query_hash: "ba1a5a4151ffbfeb79a022730aacfe658f012a5a1c1ae79b2dfa37c718ed5de3"
+query_hash: "2d61f6731cec401f983985b1a70cf45a0b9bf9e94bad5504136a0924c1b49a47"
 block_response {
   block {
     block_v1 {
@@ -208,43 +205,95 @@ block_response {
           payload {
             reduced_payload {
               commands {
-                create_asset {
-                  asset_name: "f01bd23a7f648980734bafe206b4a1b5"
-                  domain_id: "document"
+                create_role {
+                  role_name: "null_role"
                 }
               }
-              creator_account_id: "user_a@document"
-              created_time: 1638150180254
+              creator_account_id: "admin@admin"
+              created_time: 1638934093802
               quorum: 1
             }
           }
           signatures {
-            public_key: "9a55355fd46ae961b797d05d0473e5bfa52fa971de44ba706447e324c85124d9"
-            signature: "ec0234e32223ab117d3348f62d87dc1ebff70d68dfe121cc8c08fadc3a89b0e99d4f595bc40756d9bfbd6ce484e7e4597ddff3398d194fc6b79d7dafaa9e8600"
+            public_key: "313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910"
+            signature: "ce560bb7d0f7bb50025c96e19eab0ae970abfc904bb74a3e07b50a2b965cd15da806195de6a765629ebfc9ed2921e5dd789f8b7bc2bd2530fc81f2bc5744350c"
           }
         }
         height: 4
-        prev_block_hash: "a4082bee5535dede208acb14d476036dcede0e3d84758eb45b97fb5092cc9d84"
-        created_time: 1638150183251
+        prev_block_hash: "f55ac1c687c8444b6c1f6eef980c3ca8e841e9422d4c35969eb5b6035e638a22"
+        created_time: 1638934096787
       }
       signatures {
         public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
-        signature: "f7dcd59f1669face03838d7c27a03518db72e09cede33ab02a2ed79c745160053039f084ec3c40ea117e4987c5146f0a3ebb3aa8a1de825af3446237d9486e0f"
-      }
-      signatures {
-        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
-        signature: "f0ed843e3e380acec72ba1aad57200ea0e00947353af789154f7a1b741c94ef34241d2010b396b8d06c63421bfcff8f1acd37b8f9530b1d6125b29de29a79304"
+        signature: "11b6735b112bb392597beda8777febfb7a4dd856033ae0dcff4a0551530faea1e21e5e111f86c0f1f1f5b6b5188eecc18c3c6b272ef2a80d6209c37aa136690b"
       }
       signatures {
         public_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
-        signature: "bcd4d7245af2339b7923ee595992119e466a164ce9303c3c86ab0b38dda72278364929f906ba27d579c87bdd145319f516a0eb92d70ca7b691edba791cdaaf04"
+        signature: "1fab2f9be6648325ef14f0b153d917d52ba54d59eebc72703505455f35f4fe9fde24bca6d50c5eeb11750f560c131bac0fcf64c88d964259fc5941eea58dc405"
+      }
+      signatures {
+        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+        signature: "0da2a07e35572b0424ac97e0be4f09526093ce1cab0f253af94bf769c9089ad1e9e1e2ac63e000db10026c4b970216e87ff702c6b13453b1c932ef8d5ac24600"
+      }
+      signatures {
+        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+        signature: "8f495a1e9db9fad21cc8873306a3c004a9a7a1624232e668b4a6b7b055345a44a5d85492de2d01e5693ad489cb72eb2eaf53d29012a8d2dd20e5999ce153080e"
       }
     }
   }
 }
 
 
-query_hash: "a5a184e021a298e2267e641cab76590cf93cd162faab99a4d8f020fea555ce0c"
+query_hash: "0a0cafc9461aec5c826a4d283bc44fd3478e83293e71156b41a1f9339e33a32c"
+block_response {
+  block {
+    block_v1 {
+      payload {
+        transactions {
+          payload {
+            reduced_payload {
+              commands {
+                create_domain {
+                  domain_id: "message"
+                  default_role: "null_role"
+                }
+              }
+              creator_account_id: "admin@admin"
+              created_time: 1638934096848
+              quorum: 1
+            }
+          }
+          signatures {
+            public_key: "313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910"
+            signature: "b4950ceda22ccc43acd300d2d697a19038b26787886deecec82fe265b1b658bafde952bf4250ad99e47807397aad9fa9636ccb525ba51a3746103d52fd2be208"
+          }
+        }
+        height: 5
+        prev_block_hash: "4628083f17020f7d4490b9e7610c6fc886f2a22bd98fc692c1c8690049b3c062"
+        created_time: 1638934099838
+      }
+      signatures {
+        public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
+        signature: "f0d7cb5274c25f583c45cf729ee59d0fd6a9db89796e17e0a76528cc3b3a9fcc604ac65849a1ee12fc57051a92d3d181e3ffcb50aa343f66dcb4abd128a6690b"
+      }
+      signatures {
+        public_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
+        signature: "cbc1338328a185c0cbc1512d08a6d7255e1055dac376492f8259997c1c345075cff6dcf3582dea3b5ce027935fd78d02eb69c7e22cf771d2deafc2ee50b91302"
+      }
+      signatures {
+        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+        signature: "6d80d9585f521dacc52b457a93d5b763b8d71086c0ac6a63b1b9374e9409064805cd7f5f79493965954bbc18571627e708012a427d4e03365c2369efa0be0f00"
+      }
+      signatures {
+        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+        signature: "cc94f14751f40c0f358be6ae08cdcb5bacb6e75700bdb53aee8cfb966b3c91ef1e132ec6e66fda194005985741f5e4f5ad69bb1a04914caf27d46eebd186ac0b"
+      }
+    }
+  }
+}
+
+
+query_hash: "6501b312faa1ac420541a0848aa2cfca9b50b58dcecc514abc54f6182bbeca4b"
 block_response {
   block {
     block_v1 {
@@ -254,39 +303,111 @@ block_response {
             reduced_payload {
               commands {
                 create_asset {
-                  asset_name: "920bbbd31080b867e575f0813d046bb8"
-                  domain_id: "document"
+                  asset_name: "65a8e27d8879283831b664bd8b7f0ad4"
+                  domain_id: "message"
                 }
               }
-              creator_account_id: "user_b@document"
-              created_time: 1638150183310
+              creator_account_id: "user_a@hashing"
+              created_time: 1638934099882
               quorum: 1
             }
           }
           signatures {
-            public_key: "5cfd77115391decdc6d67c7c0d7e7872e0dc836ff794e69e0ff99153f7d2c17e"
-            signature: "4c0a9baa6a521138691f72cbadfc6e43683a39a7dadc8f8901459c1eb709b8006998210b5785b36d72a2af098eb72119c9f88115c451ae3a43c3c19208b8c307"
+            public_key: "91473b9c2c1759378989d63e11e5c7bbb6f37971a3364d22a43f4a1fcce8f100"
+            signature: "e2f548a3edbdfcce70f6f4fd479d618f0604500a6a49276273e61c6258557478edcb954eee5b547080e275edbb22937750565a36518e130a0286022ca4f5c109"
           }
         }
-        height: 5
-        prev_block_hash: "76ef0f4d5a204514adae25a4cec1593616bfd47550ecf47cef10da9c0b8ceee6"
-        created_time: 1638150186303
+        height: 6
+        prev_block_hash: "02566d0205888a71c85295aad55e94ad08be28f6f69aef67869a15510f3f3720"
+        created_time: 1638934102881
       }
       signatures {
         public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
-        signature: "d4ca8cf89b7f047133854d4dcc3702379ffad650496d79c04e9ab4f81c061dd9ef97da84c089809360594b77d9ea85adbb25d0fcf109fda2aab9e97c74090f09"
-      }
-      signatures {
-        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
-        signature: "2a9407b9b0479aac0736c6aae7abff27016a9c7983cdb5a3c92acbd777c3f27afa0eb63f48997c0c923dac552f3c4e6725f3469c9aad05de8ef9eb72d952e300"
+        signature: "ee9f445da0fd86ec96968da5bc089655eb2e637ff3afaf2901f267747d4510cd7221e2127123f2c0c6e9b6482738bd6804590a7d944130ab1a888ca6e2ca4f0e"
       }
       signatures {
         public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
-        signature: "91f9ce81af19f4219075b39bf7e0d09cc420a52f720cddc3b09ccb11505fa50567a4fb8dfba9e68baf85c3ac53f3ce2a5805a48b01019885155e13ef7ff53306"
+        signature: "fa69e214ddba125d97a8a2632a92a7cb2f154da1a703f74a0c80551e0652f22a1c1acc0feb4f2faf001457c217294d7c2f2c236d55a16952786983af783b620f"
       }
       signatures {
         public_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
-        signature: "8f91e16a019ee9ed53cec7eba72ff54b1ebe658c7fad69e66b31feab75f5f868afa50f83fd06c1ca7a5fe25cdff7987383f6e6c885e0816c5d3c865c9169ff0b"
+        signature: "339c8720ad53df284b06a8adce2c71b127764d68dff68c4d7fecf63fe768f481f810c48c0dbb5cfaa86a2cf1745666fbf53bf7297d017adac9bd8531bf74b40e"
+      }
+      signatures {
+        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+        signature: "3f7dfd7e12be036f3cbf8cda403f6e3070f766d8ac3d41f25e233eff90e9f4ebd9cb1d28609cd331796f1778f619f951c9a175cbbfa26133febddaca0a105a00"
+      }
+    }
+  }
+}
+
+
+query_hash: "5d09a29852d44055fcca317a23f6f0caa3a143b3a973cb52c4f5d58adec2d913"
+block_response {
+  block {
+    block_v1 {
+      payload {
+        height: 7
+        prev_block_hash: "3e6e57a28f377f79e9b8df50aa11e629c1d4a348dbf6ef284513cf2f696c10ba"
+        created_time: 1638934105933
+        rejected_transactions_hashes: "eba494c7649d8c1378da0c772f3c1bfce88318650b3c8653e45ddf92dbefdccd"
+      }
+      signatures {
+        public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
+        signature: "4b56429f9d9bbbcb1f38f8ea058bef14a4265effe338201a4ff18dd6819641536dd2210e1a765b509eb1b924762fe1cac2b5013980a71f5c9cbf0220f94e1e07"
+      }
+      signatures {
+        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+        signature: "aa7137d5ed26849330b7f879ad15059b9a41a513938fbb5f9223b5f561aae306376a67183f6c684841bc77439f2885a6255c9b3ec9e7771c77c2decf5d855f06"
+      }
+      signatures {
+        public_key: "55b77d9e7ecb1cad531555da10c28a475363cbdd0802b7951e85419014143ecc"
+        signature: "ad4f22a31f4e1128fa52296f8048fd5ceddec62cf9028516194ad86ac4c89ce2e2b60f95b0c88095ed496da0fa3cda712af1ec7c92dc3c0cbe624ab5530b430b"
+      }
+    }
+  }
+}
+
+
+query_hash: "2819f5ebb9bddafed64359c7d82756ef0b563c8ee56322267e461f808493021b"
+block_response {
+  block {
+    block_v1 {
+      payload {
+        transactions {
+          payload {
+            reduced_payload {
+              commands {
+                create_asset {
+                  asset_name: "9a9ade841093383e212a698f6569a960"
+                  domain_id: "message"
+                }
+              }
+              creator_account_id: "user_a@hashing"
+              created_time: 1638934105983
+              quorum: 1
+            }
+          }
+          signatures {
+            public_key: "91473b9c2c1759378989d63e11e5c7bbb6f37971a3364d22a43f4a1fcce8f100"
+            signature: "3d4ef90a043986bbf7ebaa780d0e6b60e82eb9576be14bf0b9a9e94b511f785d784094654faae365d55b47946bd73c00d21166bbfcac1b5de30fb9067a7f1003"
+          }
+        }
+        height: 8
+        prev_block_hash: "80a0fa2c957afb1ae4245422f50b9c426099285eea833ae0189c3d5227069db7"
+        created_time: 1638934108975
+      }
+      signatures {
+        public_key: "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
+        signature: "09c026332ffc5092726ece11bfbc9d48dd94767ba3a893ccf389cf506e9058e79c54c5571d1467877e478b52323dc988f62a985fe249fc2b181825bba43d470a"
+      }
+      signatures {
+        public_key: "6870dec85c32ba2d2c042c511b5a4ea4003823fd1ef819231becc7544331d5d3"
+        signature: "38fdf4f393290bf3af336eed93b97f7fbf72ebdd8e072e96f2e2ea32d657a0f4ab5acdcca142dfd967fd68d2965aafc701db1b08a06bed2fe5665198214d1f04"
+      }
+      signatures {
+        public_key: "3ad86d45d8b8e89298d49185b3418fc14a5b0ecbf3b26cb0a592c8ba6b8cae8e"
+        signature: "da893cc79f82f58b8ac84347fa1c3c85dd075662d5b56c2a33e5072463708802485f0d393c1b4b30d0fa487d93506d5d273fce9744b017482396697e69fdce0f"
       }
     }
   }
