@@ -134,7 +134,7 @@ class Custodian():
     HASHING_DOMAIN_SUFFIX = "-hash"
 
     @trace
-    def __init__(self, default_domain_name="hashing", hashing_role_name="hash_creator", null_role_name="null_role"):
+    def __init__(self, default_domain_name="hashing", hashing_role_name="hash_creator", null_role_name="null_role", blockstore=False):
         self.default_domain_name = default_domain_name
         self.hashing_role_name = hashing_role_name
         self.null_role_name = null_role_name
@@ -156,8 +156,9 @@ class Custodian():
         logging.debug(tx)
         status = send_transaction(tx, net_1)
         logging.debug(status)
-        # Create BlockStorehouse to check blocks as they come in
-        self.block_storehouse = BlockStorehouse()
+        if blockstore:
+            # Create BlockStorehouse to check blocks as they come in
+            self.block_storehouse = BlockStorehouse()
 
     @trace
     def new_hashing_user(self, user_name):
@@ -333,12 +334,12 @@ class Custodian():
         return response.asset_response.asset.asset_id==f"{h}#{domain_name}"
 
     @trace
-    def get_domain_hashes(self, domain_name=None):
+    def get_domain_hashes(self, domain_name=None, connection=net_1):
         """
         Find all occurrences of domain being added to over the entire blockchain
         Return this information as a list, from earliest to latest
 
-        Note this operation can be   S L O W   for large chains
+        Note this operation can be   S L O W   for large chains, particularly if you are not using a block_storehouse
 
         Args:
             user (Dictionary): The user dictionary of the user querying this domain
@@ -360,32 +361,34 @@ class Custodian():
 
         domain_name = self._parse_domain_name(domain_name)
 
-        return self.block_storehouse.get_domain_hashes(domain_name)
-        # current_height=1
-        # current_block = None
-        # asset_list = []
+        # If this custodian does have a blockstore house, just use that
+        if self.block_storehouse is not None:
+            return self.block_storehouse.get_domain_hashes(domain_name)
+        current_height=1
+        current_block = None
+        asset_list = []
 
-        # # Loop over every block in the chain, from the first
-        # while (current_block := get_block(current_height, connection)).error_response.error_code == 0:
-        #     logging.debug(f"Got block at height {current_height}")
-        #     # For each transaction in the block
-        #     for tx in current_block.block_response.block.block_v1.payload.transactions:
-        #         # Get the creator and the time
-        #         current_creator_id = tx.payload.reduced_payload.creator_account_id
-        #         current_created_time = tx.payload.reduced_payload.created_time
-        #         # For each command in the transaction
-        #         for command in tx.payload.reduced_payload.commands:
-        #             # If the command is to create asset in the target domain, store this
-        #             if command.create_asset.domain_id == domain_name:
-        #                 current_asset = {
-        #                     "height": current_height,
-        #                     "hash": command.create_asset.asset_name,
-        #                     "domain": command.create_asset.domain_id,
-        #                     "creator_id": current_creator_id,
-        #                     "time": current_created_time
-        #                 }
-        #                 logging.debug("Found matching asset")
-        #                 logging.debug(f"{current_asset=}")
-        #                 asset_list.append(current_asset)
-        #     current_height+=1
-        # return asset_list
+        # Loop over every block in the chain, from the first
+        while (current_block := get_block(current_height, connection)).error_response.error_code == 0:
+            logging.debug(f"Got block at height {current_height}")
+            # For each transaction in the block
+            for tx in current_block.block_response.block.block_v1.payload.transactions:
+                # Get the creator and the time
+                current_creator_id = tx.payload.reduced_payload.creator_account_id
+                current_created_time = tx.payload.reduced_payload.created_time
+                # For each command in the transaction
+                for command in tx.payload.reduced_payload.commands:
+                    # If the command is to create asset in the target domain, store this
+                    if command.create_asset.domain_id == domain_name:
+                        current_asset = {
+                            "height": current_height,
+                            "hash": command.create_asset.asset_name,
+                            "domain": command.create_asset.domain_id,
+                            "creator_id": current_creator_id,
+                            "time": current_created_time
+                        }
+                        logging.debug("Found matching asset")
+                        logging.debug(f"{current_asset=}")
+                        asset_list.append(current_asset)
+            current_height+=1
+        return asset_list
