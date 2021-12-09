@@ -2,10 +2,8 @@ import os
 import binascii
 import logging
 from pathlib import Path
-import re
 from google.protobuf.symbol_database import Default
 from iroha import IrohaCrypto, Iroha, IrohaGrpc, primitive_pb2
-import hashlib
 
 class bcolors:
     HEADER = '\033[95m'
@@ -69,7 +67,7 @@ def trace(func):
 
 
 @trace
-def send_transaction(transaction, connection, verbose=False):
+def send_transaction(transaction, connection=net_1, verbose=False):
     """Send a transaction across a network to a peer and return the final status
     Verbose mode intended mainly for manual transaction sending and testing
     This method is blocking, waiting for a final status for the transaction
@@ -96,7 +94,7 @@ def send_transaction(transaction, connection, verbose=False):
     return last_status
 
 @trace
-def send_batch(transactions, connection, verbose=False):
+def send_batch(transactions, connection=net_1, verbose=False):
     """Send a batch of transactions across a connection, all at once
 
     Args:
@@ -121,7 +119,7 @@ def send_batch(transactions, connection, verbose=False):
     return last_status_list
 
 @trace
-def get_block(block_number, connection):
+def get_block(block_number, connection=net_1):
     """Get the block at height block_number from the node specified by connection 
 
     Args:
@@ -142,7 +140,7 @@ def get_block(block_number, connection):
     return block
 
 @trace
-def get_all_blocks(connection):
+def get_all_blocks(connection=net_1):
     """Get all blocks from a connection
 
     Args:
@@ -165,7 +163,7 @@ def get_all_blocks(connection):
     return block_json
 
 @trace
-def log_all_blocks(connection, log_name, logs_directory="logs"):
+def log_all_blocks(log_name, logs_directory="logs", connection=net_1):
     """Get all blocks from a node and write them to a log file in JSON format
 
     Args:
