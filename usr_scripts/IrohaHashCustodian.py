@@ -73,15 +73,15 @@ class BlockStorehouse():
             # For each command in the transaction
             for command in tx.payload.reduced_payload.commands:
                 # If the command is to create asset in the target domain, store this
-                if command.create_asset.domain_id.endswith(Custodian.HASHING_DOMAIN_SUFFIX):
+                if command.create_asset.domain_id.endswith(self.hashing_domain_suffix):
                     # We have a new hash
                     with self._world_state_lock:
                         if command.create_asset.domain_id not in self.world_state.keys():
                             # We need to make a new entry to our world_state domains
                             self.world_state[command.create_asset.domain_id] = []
                         current_hash = {
-                            "height": self.current_height,
                             "hash": command.create_asset.asset_name,
+                            "height": self.current_height,
                             "domain": command.create_asset.domain_id,
                             "creator_id": current_creator_id,
                             "time": current_created_time
@@ -151,22 +151,35 @@ class Custodian():
     Offering the ability to get hashes of a file, store hashes on the chain, and find hashes on the chain
     """
 
-    """
-    The hash function this custodian will use
-    Iroha demands 32 character asset names, so we are restricted greatly in output size
-    """
-    HASH_FUNCTION = hashlib.md5
-
-    """
-    The suffix for domains that store file hashes
-    """
-    HASHING_DOMAIN_SUFFIX = "-hash"
-
     @trace
-    def __init__(self, default_domain_name="hashing", hashing_role_name="hash_creator", null_role_name="null_role", blockstore=False):
+    def __init__(self, hashing_domain_suffix="-hash", 
+            default_domain_name="hashing", 
+            hashing_role_name="hash_creator", 
+            null_role_name="null_role", 
+            blockstore_threading=False,
+            hash_function = hashlib.md5):
+        """
+        Create a new hash custodian, managing storage of hashes on the blockchain
+        Use store_hash_on_chain to store a hash in a domain
+        Use find_hash_on_chain to check if a hash exists in a domain
+        Use get_domain_hashes to get ALL hashes in a domain
+
+        Args:
+            hashing_domain_suffix (str, optional): The suffix for domains that store file hashes. Defaults to "-hash".
+            default_domain_name (str, optional): The default domain name if no domain is given to store/find a hash. Defaults to "hashing".
+            hashing_role_name (str, optional): The default role name for hashing. Defaults to "hash_creator".
+            null_role_name (str, optional): The default role name for new domains. Will have no permissions for security. Defaults to "null_role".
+            blockstore_threading (bool, optional): Determines if the blockstore (cache for queries) will thread. Defaults to False.
+            hash_function (hashlib.hash, optional): The hash function to use in hashing. Please note Iroha assets are capped at 32 characters, so currently only 32 character hash outputs are supported.
+                Defaults to hashlib.md5
+        """
+        
+        self.hashing_domain_suffix = hashing_domain_suffix
         self.default_domain_name = default_domain_name
         self.hashing_role_name = hashing_role_name
         self.null_role_name = null_role_name
+        self.block_storehouse = BlockStorehouse(self.hashing_domain_suffix, thread_mode=blockstore_threading)
+        self.hash_function = hash_function
         commands = [
             # Create a new role that can only create assets (i.e. create hashes) and read assets (to see if they exist)
             iroha_admin.command("CreateRole", role_name=self.hashing_role_name, permissions=[
@@ -240,7 +253,7 @@ class Custodian():
         """
         with open(filename, "rb") as f:
             b = f.read()
-            h = self.HASH_FUNCTION(b)
+            h = self.hash_function(b)
         logging.debug(h.hexdigest())
         return h.hexdigest()
 
@@ -256,7 +269,7 @@ class Custodian():
             String: The hex digest of the object
         """
         obj = str(obj).encode()
-        return self.HASH_FUNCTION(obj).hexdigest()
+        return self.hash_function(obj).hexdigest()
 
     def _parse_domain_name(self, domain_name):
         """
@@ -274,8 +287,8 @@ class Custodian():
         if domain_name is None:
             domain_name = self.default_domain_name
 
-        if not domain_name.endswith(Custodian.HASHING_DOMAIN_SUFFIX):
-            domain_name+=Custodian.HASHING_DOMAIN_SUFFIX
+        if not domain_name.endswith(self.hashing_domain_suffix):
+            domain_name+=self.hashing_domain_suffix
 
         return domain_name
 
@@ -376,25 +389,21 @@ class Custodian():
         return response.asset_response.asset.asset_id==f"{h}#{domain_name}"
 
     @trace
-    def get_domain_hashes(self, domain_name=None, connection=net_1):
+    def get_domain_hashes(self, domain_name=None):
         """
-        Find all occurrences of domain being added to over the entire blockchain
-        Return this information as a list, from earliest to latest
-
-        Note this operation can be   S L O W   for large chains, particularly if you are not using a block_storehouse
+        Consult the blockstore about the domain in question
 
         Args:
             user (Dictionary): The user dictionary of the user querying this domain
             domain_name (String or None, optional): The domain name to search for the hash in
                 If None then use the users domain instead
                 Defaults to None
-            connection (IrohaGrpc, optional): The connection to send this hash over. Defaults to net_1.
 
         Returns:
             List or None: A list of all occurrences of assets being added to this domain over the entire chain
                 The elements of this list are dictionaries of:
-                    height: The height that asset was added
                     hash: The name of that asset (remembering names are hashes)
+                    height: The height that asset was added
                     domain: The domain of the asset, for completeness
                     creator_id: The creator of that asset
                     time: The time of creation (may be more useful than height in some cases)
