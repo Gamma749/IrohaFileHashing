@@ -20,33 +20,40 @@ Run
 
 to pause or unpause the network respectively.
 
+## Running the examples
+
+In the `usr_scripts` directory, run `python3 <filename>.py`. 
+
+The logging will describe what steps are being taken, and will require you to hit "enter" to proceed at some points so you can inspect the outputs.
+
+
 ## Example explanation
 
-### NonupdatingFileHashing
-In this (admittedly barren) example, we will see two users (User A and User B) exchange messages (the exchange itself is outside of this example, you can imagine email, telegram, carrier pigeon...). Both users hash these messages and store this hash on the blockchain, as proof that they have sent the message at a specific time. Importantly, the message content is *not* on the blockchain and hence is *not* public.
+### UnsentMessageExample.py
+In this example, we will see two users (Jack and Jill) exchange messages (the exchange itself is outside of this example, you can imagine email, telegram, carrier pigeon...). Both users hash these messages and store the hashes on the blockchain, as proof that they have sent the message at a specific time. Importantly, the message content is *not* on the blockchain and hence is *not* public.
 
-At some later time, User C is asked to verify that the messages were sent. User C, gathering those messages, can recalculate the hashes and search for them on the blockchain. By checking if those hashes are present in a block, User C can verify if a message was sent or not (more accurately, User C can verify if the message was *logged* as sent by this method)
+At some later time, Victoria is asked to verify that the messages were sent. Victoria, gathering those messages, can recalculate the hashes and search for them on the blockchain. By checking if those hashes are present in a block, Victoria can verify if a message was sent or not (more accurately, Victoria can verify if the message was *logged* as sent by this method)
 
 Over time the events are:
-- User A sends message1.secret to User B. logging the hash
-- User B replies to User A with message2.secret, logging the hash
-- User A composes but does not send message3.secret
-- User C gets message1.secret, computes the hash, and determines the hash *is* on chain
+- Jack sends message1.secret to Jill. logging the hash
+- Jill replies to Jack with message2.secret, logging the hash
+- Jack composes but does not send message3.secret
+- Victoria gets message1.secret, computes the hash, and determines the hash *is* on chain
     - Verifies that message1.secret was sent
-- User C gets message3.secret, computes the hash, and determines the hash is *not* on chain
-    - Verifies that message3.secret was not sent
+- Victoria gets message2.secret, computes the hash, and determines the hash *is* on chain
+    - Verifies that message2.secret was sent
+- Victoria gets message3.secret, computes the hash, and determines the hash is *not* on chain
+    - Verifies that message3.secret was *not* sent
 
-### UpdatingFileHashing
-In this example, one user (User A) creates a message and stores the hash in a new domain. All updates to this message can be stored in this domain and we can track updates to this file over time this way.
+### DifferingMessageExample.py
+In this example, Alice sends a message to Bob and logs the hash on chain. Bob can verify that the message he receives has the same hash as he sees on chain, verifying the message. Alice can update the message, send it to Bob, and log the hash again. Bob can once again check the message and see it has updated.
 
-Some time later, User A updates the message, and again logs the hash
+A new user, Mallory, enters the picture and wants to trick Alice and Bob. Mallory creates a new message claiming Bob owes Mallory some money. Mallory logs this hash and sends it to Alice *only* (Bob does not see this message). Alice can see this hash and verify it, so she believes Bob owes Mallory. Mallory updates the message and sends the now non-dubious message to Bob.
 
-User B receives the message and checks the blockchain to see if this message is the most up to date. (It is)
-
-## Running this example
-Ensure the Iroha network is up by running `./manage-network up` from the root directory
-
-In the `usr_scripts` directory, run `python3 <filename>.py`. The logging will describe what steps are being taken. When convinced that this program runs without error, checkout the source code to see how the above example is implemented.
+Mallory now has two choices:
+1. Do not log the new message hash on chain. Bob can check the chain and see his message hash is not the same as the one on chain, and knows he is being tricked
+2. Log the new message hash on chain. Bob can check the chain and verify the hash (although the previous hash from Alice should raise suspicion).
+Alice and Bob meet and Alice states Bob owes Mallory, citing her message hash. Bob disputes this and provides his message hash. Alice and Bob can now check the chain again, and Alice can see her message is outdated, so she will stop believing Bob owes Mallory.
 
 ## Some thoughts
 - This example, as with much of blockchain and cryptography, relies on there being absolutely no hash collisions. If a hash collision occurs, it would be possible to trick the auditor User C.
